@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import BookingPage from './pages/Booking/BookingPage';
 import TrackingPage from './pages/Tracking/TrackingPage';
 import CalendarPage from './pages/Calendar/CalendarPage';
+import BookingForm from './components/BookingForm';
+import TrackingView from './components/TrackingView';
+import ShippingCalendar from './components/ShippingCalendar';
 import './App.css';
 
 function App() {
@@ -31,10 +34,13 @@ function App() {
             <Route path="/tracking" element={<TrackingPage />} />
             <Route path="/calendar" element={<CalendarPage />} />
           </Routes>
+          <BookingForm />
+          <TrackingView />
+          <ShippingCalendar />
         </main>
       </div>
     </Router>
   );
 }
 
-export default App; 
+export default App;
