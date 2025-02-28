@@ -40,11 +40,7 @@ class Address(BaseModel):
     validation_results: Optional[Dict]
 
 class BookingRequest(BaseModel):
-    parcels: List[Parcel]
-    address_from: Address
     address_to: Address
-    object_purpose: str
-
 class TrackingRequest(BaseModel):
     tracking_number: str
 

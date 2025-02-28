@@ -1,8 +1,10 @@
 import aiohttp
 import os
-from ..models.shipping import BookingRequest, TrackingResponse, ShipmentResponse, TransactionResponse
-from ..config.constants import MOCK_TRACKING_NUMBERS
+import random
 from typing import Optional
+from ..models.shipping import BookingRequest, TrackingResponse, ShipmentResponse, TransactionResponse
+from ..config.constants import BOOKING_PAYLOAD_TEMPLATE, MOCK_TRACKING_NUMBERS
+
 
 class ShippingService:
     def __init__(self):
@@ -21,7 +23,7 @@ class ShippingService:
 
     async def _create_shipment(self, booking_request: BookingRequest) -> ShipmentResponse:
         async with aiohttp.ClientSession() as session:
-            payload = booking_request.dict()
+            payload = BOOKING_PAYLOAD_TEMPLATE | booking_request.dict()
             async with session.post(
                 f"{self.API_BASE_URL}/shipments",
                 headers=self.headers,
@@ -51,7 +53,7 @@ class ShippingService:
                 return TransactionResponse(**response_data)
 
     async def track_shipment(self, tracking_number: str):
-        tracking_number = MOCK_TRACKING_NUMBERS[0]
+        tracking_number = MOCK_TRACKING_NUMBERS[random.randint(0, 4)]
         async with aiohttp.ClientSession() as session:
             async with session.get(
                 f"{self.API_BASE_URL}/tracks/shippo/{tracking_number}",
