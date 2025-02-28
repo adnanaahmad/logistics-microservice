@@ -34,9 +34,6 @@ function App() {
             <Route path="/tracking" element={<TrackingPage />} />
             <Route path="/calendar" element={<CalendarPage />} />
           </Routes>
-          <BookingForm />
-          <TrackingView />
-          <ShippingCalendar />
         </main>
       </div>
     </Router>

@@ -12,13 +12,12 @@ services:
       - ./backend:/app
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend/src:/app/src
     ports:
       - "3000:3000"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-    depends_on:
-      - backend
     environment:
-      - NODE_ENV=development
+      - REACT_APP_BACKEND_BASE_URL=${REACT_APP_BACKEND_BASE_URL}

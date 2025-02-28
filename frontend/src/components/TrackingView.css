@@ -1,0 +1,48 @@
+.tracking-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+input.error {
+    border-color: red;
+    background-color: #ffe6e6;
+}
+
+.required-label {
+    color: grey;
+    display: block;
+    margin-bottom: 5px;
+}
+
+button {
+    padding: 10px;
+    background-color: #ff5733;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+  
+button:hover {
+    background-color: #cc4626;
+}
+  
+button.loading {
+    background-color: #ff5733a1;
+    cursor: not-allowed;
+}
