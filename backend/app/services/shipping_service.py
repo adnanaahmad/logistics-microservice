@@ -53,6 +53,10 @@ class ShippingService:
                 return TransactionResponse(**response_data)
 
     async def track_shipment(self, tracking_number: str):
+        tracking_data = await self._get_tracking_data(tracking_number)
+        return tracking_data
+
+    async def _get_tracking_data(self, tracking_number: str) -> TrackingResponse:
         tracking_number = MOCK_TRACKING_NUMBERS[random.randint(0, 4)]
         async with aiohttp.ClientSession() as session:
             async with session.get(
