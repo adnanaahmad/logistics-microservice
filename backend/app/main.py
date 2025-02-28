@@ -1,7 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from .config.standard_response import StandardResponse
+from .models.shipping import BookingRequest, TrackingResponse
 from .services.shipping_service import ShippingService
-from .models.shipping import BookingRequest, TrackingRequest
 
 app = FastAPI()
 
@@ -19,15 +20,15 @@ shipping_service = ShippingService()
 @app.post("/api/booking")
 async def create_booking(booking_request: BookingRequest):
     try:
-        result = await shipping_service.create_booking(booking_request)
-        return result
+        booking_data = await shipping_service.create_booking(booking_request)
+        return StandardResponse(data=booking_data)
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        return StandardResponse(status=False, message="Failed to create booking", errors=[str(e)])
 
 @app.get("/api/tracking/{tracking_number}")
 async def track_shipment(tracking_number: str):
     try:
-        result = await shipping_service.track_shipment(tracking_number)
-        return result
+        tracking_data = await shipping_service.track_shipment(tracking_number)
+        return StandardResponse(data=tracking_data)
     except Exception as e:
-        raise HTTPException(status_code=404, detail=str(e)) 
+        return StandardResponse(status=False, message="Failed to track shipment", errors=[str(e)])
