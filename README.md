@@ -60,7 +60,7 @@ This project is a logistics microservice designed to integrate with courier plat
 
 3. Build and run the containers:
    ```bash
-   docker-compose up --build
+   docker compose up --build
    ```
 
 4. Access the application:
