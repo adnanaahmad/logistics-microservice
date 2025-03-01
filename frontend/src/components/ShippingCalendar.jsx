@@ -9,9 +9,10 @@ const DnDCalendar = withDragAndDrop(BigCalendar);
 const localizer = momentLocalizer(moment);
 
 function ShippingCalendar() {
-  const [events, setEvents] = useState([]);
-  const [draggedEvent, setDraggedEvent] = useState();
-  const [isDragging, setIsDragging] = useState(false);
+  // State management
+  const [events, setEvents] = useState([]); // Calendar events
+  const [draggedEvent, setDraggedEvent] = useState(); // Currently dragged package
+  const [isDragging, setIsDragging] = useState(false); // Dragging state flag
   const [packages, setPackages] = useState([
     { id: 1, name: "Package 1" },
     { id: 2, name: "Package 2" },
@@ -19,6 +20,7 @@ function ShippingCalendar() {
     { id: 4, name: "Package 4" },
   ]);
 
+  // Handles event rescheduling when dragged within the calendar
   const onChangeDeliveryTime = useCallback(
     ({
       event,
@@ -28,7 +30,7 @@ function ShippingCalendar() {
       setEvents((prevEvents) =>
         prevEvents.map((prevEvent) =>
           prevEvent.id === event.id
-            ? { ...event, start, end }
+            ? { ...event, start, end } // Update event's time
             : prevEvent
         )
       );
@@ -36,6 +38,7 @@ function ShippingCalendar() {
     []
   );  
 
+  // Handles dropping a package from the list into the calendar
   const onDroppedFromOutside = useCallback(
     ({
       start,
@@ -47,13 +50,13 @@ function ShippingCalendar() {
       setEvents((prevEvents) => [
         ...prevEvents,
         {
-          id: new Date().getTime(),
+          id: new Date().getTime(), // Unique ID for the event
           start,
           end,
-          data: { package: draggedEvent },
-          isDraggable: true,
-          isResizable: true,
-          title: draggedEvent.name,
+          data: { package: draggedEvent }, // Store package data
+          isDraggable: true, // Allow future dragging
+          isResizable: true, // Allow resizing
+          title: draggedEvent.name, // Event title
         },
       ]);
 
@@ -62,16 +65,18 @@ function ShippingCalendar() {
         prevPackages.filter((pkg) => pkg.id !== draggedEvent.id)
       );
       
-      setIsDragging(false);
+      setIsDragging(false); // Reset dragging state
     },
     [draggedEvent]
   );
 
+  // Handles start of package drag
   const handleDragStart = (pkg) => {
     setDraggedEvent(pkg);
     setIsDragging(true);
   };
 
+  // Handles end of package drag
   const handleDragEnd = () => {
     setIsDragging(false);
   };
@@ -80,6 +85,7 @@ function ShippingCalendar() {
     <div className="shipping-calendar-container-parent">
       <h2>Shipping Calendar</h2>
       <div className="shipping-calendar-container">
+        {/* Calendar Section */}
         <div className="calendar-section calendar-wrapper">
           <DnDCalendar
             localizer={localizer}
@@ -95,6 +101,7 @@ function ShippingCalendar() {
           />
         </div>
 
+        {/* Packages List Section */}
         <div className="packages-section">
           <h3 className="packages-title">Available Packages</h3>
           <div className="packages-list">
@@ -109,6 +116,7 @@ function ShippingCalendar() {
                 {pkg.name}
               </div>
             ))}
+            {/* Show message when no packages are available */}
             {packages.length === 0 && (
               <div className="package-item" style={{ opacity: 0.6, cursor: 'default' }}>
                 No packages available

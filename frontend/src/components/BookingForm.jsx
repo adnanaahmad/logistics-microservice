@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // Import Axios
-import './BookingForm.css'; // Import the CSS file
+import axios from 'axios'; // Import Axios for making HTTP requests
+import './BookingForm.css'; // Import the CSS file for styling
 
 const BookingForm = () => {
+  // State to manage form data
   const [orderDetails, setOrderDetails] = useState({
     name: '',
     street1: '',
@@ -14,39 +15,48 @@ const BookingForm = () => {
     email: ''
   });
 
+  // Messages for different scenarios
   const successMessage = 'Your order has been placed successfully.';
   const errorMessageOne = 'Sorry, we couldn\'t process your order at this time. Please try again or contact our support team for assistance.';
   const errorMessageTwo = 'Oops! Something went wrong while processing your order. Please try again in a few moments or reach out to our support team if the issue persists.';
 
+  // State for managing form errors, messages, and loading status
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState('');
   const [trackingNumber, setTrackingNumber] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  // Handle input changes and clear errors for the changed field
   const handleChange = (e) => {
     const { name, value } = e.target;
     setOrderDetails({ ...orderDetails, [name]: value });
     setErrors({ ...errors, [name]: false });
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     const newErrors = {};
+    
+    // Validate required fields
     Object.keys(orderDetails).forEach((key) => {
       if (!orderDetails[key]) {
         newErrors[key] = true;
       }
     });
 
+    // If there are validation errors, set them and stop submission
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       setIsLoading(false);
     } else {
       try {
+        // Prepare payload and make API request
         const payload = {"address_to": orderDetails};
         const response = await axios.post(`${process.env.REACT_APP_BACKEND_BASE_URL}/api/booking`, payload);
         
+        // Handle response
         if (response.data.status) {
           setMessage(successMessage);
           setTrackingNumber(response.data.data.tracking_number);
@@ -55,21 +65,22 @@ const BookingForm = () => {
           setTrackingNumber('');
         }
       } catch (error) {
-        console.error('Error booking order:', error);
+        // Handle API errors
         setMessage(errorMessageTwo);
         setTrackingNumber('');
       } finally {
-        setIsLoading(false); // Set loading to false after request completes
+        setIsLoading(false); // Reset loading state regardless of success/failure
       }
     }
   };
 
+  // Effect to automatically clear messages after 5 seconds
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => {
         setMessage('');
-      }, 5000); // Hide message after 5 seconds
-      return () => clearTimeout(timer); // Cleanup the timer on component unmount or when message changes
+      }, 5000);
+      return () => clearTimeout(timer);
     }
   }, [message]);
 
@@ -77,6 +88,7 @@ const BookingForm = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <h2>Book an Order</h2>
+        {/* Form fields with required labels and error handling */}
         <label className="required-label">Name *</label>
         <input
           type="text"
@@ -154,12 +166,14 @@ const BookingForm = () => {
         </button>
       </form>
       
+      {/* Display success/error messages */}
       {message && (
         <div className={`message ${message.includes(successMessage) ? 'success' : 'error'}`}>
           {message}
         </div>
       )}
 
+      {/* Display tracking number if available */}
       {trackingNumber && (
         <div className="tracking-number centered">
           Tracking # {trackingNumber}
