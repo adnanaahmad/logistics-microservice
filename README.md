@@ -97,4 +97,4 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 ## Demo Video
 
 Watch a detailed walkthrough of the project on Loom:  
-[![Watch on Loom]](https://www.loom.com/share/4ff8d892922f455787cbd312e8cba21e?sid=37348f1a-c0b9-4d8c-9d15-c1ade1f74125)
+[[Watch on Loom]](https://www.loom.com/share/4ff8d892922f455787cbd312e8cba21e?sid=37348f1a-c0b9-4d8c-9d15-c1ade1f74125)
