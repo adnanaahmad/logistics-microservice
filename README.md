@@ -33,7 +33,7 @@ This project is a logistics microservice designed to integrate with courier plat
 ## Tech Stack
 
 ### Backend
-- **Programming Language:** FastAPI
+- **Framework:** FastAPI
 - **API Integration:** goshippo APIs
 
 ### Frontend
@@ -51,12 +51,12 @@ This project is a logistics microservice designed to integrate with courier plat
 ### Steps
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/adnanaahmad/logistics-microservice.git
    cd logistics-microservice
    ```
 
 2. Set up environment variables:
-   - Create a `.env` file in the root directory for backend API keys and configurations.
+   - `.env` file is already added to the root directory for backend API keys and configurations.
 
 3. Build and run the containers:
    ```bash
