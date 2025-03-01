@@ -1,0 +1,147 @@
+.shipping-calendar-container-parent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.shipping-calendar-container {
+  gap: 24px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.calendar-section {
+  flex: 1;
+  min-width: 0; /* Prevents flex item from overflowing */
+  height: calc(100vh - 32px);
+  width: 100%;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+  /* padding: 16px; */
+}
+
+.packages-section {
+  width: 300px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.packages-title {
+  margin: 0 0 16px 0;
+  color: #2c3e50;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.packages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.package-item {
+  padding: 16px;
+  background-color: white;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.package-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  border-color: #007bff;
+}
+
+.package-item.dragging {
+  opacity: 0.5;
+  background-color: #e9ecef;
+}
+
+/* Calendar customization */
+.calendar-wrapper :global(.rbc-calendar) {
+  background-color: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.calendar-wrapper :global(.rbc-event) {
+  background-color: #007bff;
+  border-radius: 4px;
+}
+
+.calendar-wrapper :global(.rbc-today) {
+  background-color: #f8f9fa;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .shipping-calendar-container {
+    flex-direction: column;
+  }
+
+  .packages-section {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .packages-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .calendar-section {
+    height: calc(100vh - 250px);
+  }
+}
+
+@media (max-width: 768px) {
+  .shipping-calendar-container {
+    padding: 12px;
+  }
+
+  .packages-section {
+    padding: 16px;
+  }
+
+  .calendar-section {
+    height: calc(100vh - 200px);
+  }
+}
+
+/* Loading state */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+} 
+
+.rbc-event-label {
+  display: none;
+}
+
+.rbc-event-content {
+  font-size: small;
+}

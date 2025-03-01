@@ -3,9 +3,6 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import BookingPage from './pages/Booking/BookingPage';
 import TrackingPage from './pages/Tracking/TrackingPage';
 import CalendarPage from './pages/Calendar/CalendarPage';
-import BookingForm from './components/BookingForm';
-import TrackingView from './components/TrackingView';
-import ShippingCalendar from './components/ShippingCalendar';
 import './App.css';
 
 function App() {
